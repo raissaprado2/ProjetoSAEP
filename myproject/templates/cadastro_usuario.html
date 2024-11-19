@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Cadastro de Usuários</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('cadastro_usuario') }}">Cadastro de Usuários</a></li>
+            <li><a href="{{ url_for('cadastro_tarefa') }}">Cadastro de Tarefas</a></li>
+            <li><a href="{{ url_for('gerenciar_tarefas') }}">Gerenciar Tarefas</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Cadastro de Usuários</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('cadastro_usuario') }}" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+</body>
+</html>

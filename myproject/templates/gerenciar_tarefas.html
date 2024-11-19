@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Gerenciamento de Tarefas</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('gerenciar_tarefas') }}">Gerenciar Tarefas</a></li>
+            <li><a href="{{ url_for('cadastro_usuario') }}">Cadastro de Usuários</a></li>
+            <li><a href="{{ url_for('cadastro_tarefa') }}">Cadastro de Tarefas</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Gerenciamento de Tarefas</h1>
+        <div class="tarefas">
+            <h2>A Fazer</h2>
+            <ul>
+                {% for tarefa in tarefas_a_fazer %}
+                    <li>
+                        <p>{{ tarefa.descricao }}</p>
+                        <p>Status: {{ tarefa.status }}</p>
+                        <form action="{{ url_for('atualizar_status', tarefa_id=tarefa.id) }}" method="POST">
+                            <select name="status">
+                                <option value="a fazer" {% if tarefa.status == 'a fazer' %}selected{% endif %}>A Fazer</option>
+                                <option value="fazendo" {% if tarefa.status == 'fazendo' %}selected{% endif %}>Fazendo</option>
+                                <option value="pronto" {% if tarefa.status == 'pronto' %}selected{% endif %}>Pronto</option>
+                            </select>
+                            <button type="submit">Atualizar Status</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="tarefas">
+            <h2>Fazendo</h2>
+            <ul>
+                {% for tarefa in tarefas_fazendo %}
+                    <li>
+                        <p>{{ tarefa.descricao }}</p>
+                        <p>Status: {{ tarefa.status }}</p>
+                        <form action="{{ url_for('atualizar_status', tarefa_id=tarefa.id) }}" method="POST">
+                            <select name="status">
+                                <option value="a fazer" {% if tarefa.status == 'a fazer' %}selected{% endif %}>A Fazer</option>
+                                <option value="fazendo" {% if tarefa.status == 'fazendo' %}selected{% endif %}>Fazendo</option>
+                                <option value="pronto" {% if tarefa.status == 'pronto' %}selected{% endif %}>Pronto</option>
+                            </select>
+                            <button type="submit">Atualizar Status</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="tarefas">
+            <h2>Pronto</h2>
+            <ul>
+                {% for tarefa in tarefas_pronto %}
+                    <li>
+                        <p>{{ tarefa.descricao }}</p>
+                        <p>Status: {{ tarefa.status }}</p>
+                        <form action="{{ url_for('atualizar_status', tarefa_id=tarefa.id) }}" method="POST">
+                            <select name="status">
+                                <option value="a fazer" {% if tarefa.status == 'a fazer' %}selected{% endif %}>A Fazer</option>
+                                <option value="fazendo" {% if tarefa.status == 'fazendo' %}selected{% endif %}>Fazendo</option>
+                                <option value="pronto" {% if tarefa.status == 'pronto' %}selected{% endif %}>Pronto</option>
+                            </select>
+                            <button type="submit">Atualizar Status</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

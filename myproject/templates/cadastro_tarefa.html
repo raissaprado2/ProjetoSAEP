@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Cadastro de Tarefa</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('cadastro_usuario') }}">Cadastro de Usuários</a></li>
+            <li><a href="{{ url_for('cadastro_tarefa') }}">Cadastro de Tarefas</a></li>
+            <li><a href="{{ url_for('gerenciar_tarefas') }}">Gerenciar Tarefas</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Cadastro de Tarefa</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('cadastro_tarefa') }}" method="POST">
+            <label for="usuario">Usuário:</label>
+            <select id="usuario" name="usuario_id" required>
+                <option value="" disabled selected>Escolha o Usuário</option>
+                {% for usuario in usuarios %}
+                    <option value="{{ usuario.id }}">{{ usuario.nome }}</option>
+                {% endfor %}
+            </select>
+            <label for="descricao">Descrição da Tarefa:</label>
+            <textarea id="descricao" name="descricao" required></textarea>
+            <label for="setor">Setor:</label>
+            <input type="text" id="setor" name="setor" required>
+            <label for="prioridade">Prioridade:</label>
+            <select id="prioridade" name="prioridade" required>
+                <option value="" disabled selected>Selecione a Prioridade</option>
+                <option value="baixa">Baixa</option>
+                <option value="media">Média</option>
+                <option value="alta">Alta</option>
+            </select>
+            <button type="submit">Cadastrar Tarefa</button>
+        </form>
+    </div>
+</body>
+</html>
